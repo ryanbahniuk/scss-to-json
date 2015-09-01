@@ -1,0 +1,23 @@
+{
+  "name": "scss-to-json",
+  "version": "0.0.1",
+  "description": "A utility for converting SCSS variables files to JSON",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "main.js",
+  "dependencies": {
+    "fs-extra": "0.22.1"
+  },
+  "devDependencies": {
+    "jscs": "1.13.1",
+    "mocha": "2.2.5",
+    "proxyquire": "1.6.0",
+    "sinon": "1.15.4",
+    "wealthfront-javascript": "2.0.0"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test mocha"
+  }
+}
