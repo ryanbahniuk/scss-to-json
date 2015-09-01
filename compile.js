@@ -8,7 +8,7 @@ function wrapValue(value) {
 }
 
 function unwrapValue(value) {
-  return value.replace('.test{content:').replace('};');
+  return value.replace('.test{content:', '').replace('}', '');
 }
 
 var Compile = {
