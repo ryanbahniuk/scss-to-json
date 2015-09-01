@@ -2,6 +2,7 @@
 
 var path = require('path');
 var fs = require('fs-extra');
+var DeclarationStore = require('./declarationStore');
 var Declaration = require('./declaration');
 
 var DELIMITER = ';';
@@ -37,8 +38,9 @@ Processor.prototype = {
     if (err) throw err;
 
     var lines = String(data).split(DELIMITER).filter(filterLines);
+    var declarationStore = new DeclarationStore();
     var declarations = lines.map(function(line) {
-      return new Declaration(line);
+      return new Declaration(line, declarationStore);
     });
 
     makeJSON(declarations);
