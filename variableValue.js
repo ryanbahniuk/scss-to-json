@@ -6,7 +6,11 @@ var compile = require('./compile');
 var CSS_FUNCTIONS = ['rgb', 'rgba', 'url'];
 
 function isFunction(value) {
-  return value.search(/$\D+\(.|\)/) !== -1;
+  return value.search(/$\w+\(.|\)/) !== -1;
+}
+
+function removeFlags(value) {
+  return value.replace(/\!\w+/g, '');
 }
 
 function VariableValue(scssString) {
@@ -15,7 +19,8 @@ function VariableValue(scssString) {
 
 VariableValue.prototype = {
   _parse: function(scssString) {
-    var value = utilities.stripSpaces(scssString);
+    var deflagged = removeFlags(scssString)
+    var value = utilities.stripSpaces(deflagged);
 
     if (isFunction(value)) {
       this.value = compile.fromString(value);
