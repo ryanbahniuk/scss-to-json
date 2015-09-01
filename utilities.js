@@ -1,8 +1,17 @@
 'use strict';
 
 var Utilities = {
+  stripNewLines: function(scssString) {
+    return scssString.replace('\n', '');
+  },
+
+  stripSpaces: function(scssString) {
+    return scssString.replace(/\s/g, '');
+  },
+
   normalizeString: function(scssString) {
-    return scssString.replace('\n', '').replace(/\s/g, '');
+    var strippedNewLines = this.stripNewLines(scssString);
+    return this.stripSpaces(strippedNewLines);
   }
 };
 
