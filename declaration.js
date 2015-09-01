@@ -1,7 +1,8 @@
 'use strict';
 
 var utilities = require('./utilities');
-var VariableValue = require('./variableValue');
+var Value = require('./value');
+var Variable = require('./variable');
 
 var ASSIGNMENT_OPERATOR = ':';
 
@@ -13,8 +14,8 @@ function Declaration(line, store) {
 Declaration.prototype = {
   parse: function(line) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
-    this.variable = utilities.stripSpaces(line.substring(0, assignmentIndex));
-    var assignedValue = new VariableValue(line.substring(assignmentIndex + 1, line.length));
+    this.variable = new Variable(line.substring(0, assignmentIndex));
+    var assignedValue = new Value(line.substring(assignmentIndex + 1, line.length));
     var storedValue = this.store.findValue(assignedValue.value);
 
     if (storedValue) {

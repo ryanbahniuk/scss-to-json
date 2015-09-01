@@ -13,7 +13,7 @@ DeclarationStore.prototype = {
 
   findValue: function(variable) {
     var filteredDeclarations = this.declarations.filter(function(declaration) {
-      return declaration.variable === variable;
+      return declaration.variable.value === variable;
     });
 
     if (filteredDeclarations.length === 1) {

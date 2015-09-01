@@ -14,7 +14,7 @@ function makeJSON(declarations) {
   var output = {};
 
   declarations.forEach(function(declaration) {
-    output[declaration.variable] = declaration.value.value;
+    output[declaration.variable.value] = declaration.value.value;
   });
 
   saveFile(JSON.stringify(output));

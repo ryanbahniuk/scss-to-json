@@ -5,24 +5,24 @@ var compile = require('./compile');
 
 var CSS_FUNCTIONS = ['rgb', 'rgba', 'url'];
 
-function isFunction(value) {
-  return value.search(/$\w+\(.|\)/) !== -1;
+function includesFunction(value) {
+  return value.search(/\w+\(.|\)/) !== -1;
 }
 
 function removeFlags(value) {
   return value.replace(/\!\w+/g, '');
 }
 
-function VariableValue(scssString) {
+function Value(scssString) {
   this._parse(scssString);
 }
 
-VariableValue.prototype = {
+Value.prototype = {
   _parse: function(scssString) {
-    var deflagged = removeFlags(scssString)
+    var deflagged = removeFlags(scssString);
     var value = utilities.stripSpaces(deflagged);
 
-    if (isFunction(value)) {
+    if (includesFunction(value)) {
       this.value = compile.fromString(value);
     } else {
       this.value = value;
@@ -30,4 +30,4 @@ VariableValue.prototype = {
   }
 };
 
-module.exports = VariableValue;
+module.exports = Value;
