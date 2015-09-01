@@ -4,8 +4,10 @@ var path = require('path');
 var fs = require('fs-extra');
 var DeclarationStore = require('./declarationStore');
 var Declaration = require('./declaration');
+var utilities = require('./utilities');
 
-var DELIMITER = ';';
+var LINE_DELIMITER = ';';
+var COMMENT_DELIMETER = '//';
 var EMPTY_LINES = ['', '\n', '\s'];
 
 function makeJSON(declarations) {
@@ -25,7 +27,7 @@ function saveFile(json) {
 
 function filterLines(line) {
   return EMPTY_LINES.every(function(lineValue) {
-    return line !== lineValue;
+    return line !== lineValue && line.slice(0, 2) !== COMMENT_DELIMETER;
   });
 }
 
@@ -37,7 +39,7 @@ Processor.prototype = {
   parse: function(err, data) {
     if (err) throw err;
 
-    var lines = String(data).split(DELIMITER).filter(filterLines);
+    var lines = String(data).split(LINE_DELIMITER).map(utilities.stripNewLines).filter(filterLines);
     var declarationStore = new DeclarationStore();
     var declarations = lines.map(function(line) {
       return new Declaration(line, declarationStore);

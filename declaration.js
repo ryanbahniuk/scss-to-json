@@ -13,7 +13,7 @@ function Declaration(line, store) {
 Declaration.prototype = {
   parse: function(line) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
-    this.variable = utilities.normalizeString(line.substring(0, assignmentIndex));
+    this.variable = utilities.stripSpaces(line.substring(0, assignmentIndex));
     var assignedValue = new VariableValue(line.substring(assignmentIndex + 1, line.length));
     var storedValue = this.store.findValue(assignedValue.value);
 

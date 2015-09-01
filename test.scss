@@ -2,5 +2,5 @@ $first: 52px;
 $second-variable: red;
 $global-variable: #123 !global;
 $references: $second-variable;
-$scss-function: lighten(#123);
-$scss-function-with-variable: darken($global-variable);
+$scss-function: lighten(#123, 10%);
+// $scss-function-with-variable: darken($global-variable, 25%);
