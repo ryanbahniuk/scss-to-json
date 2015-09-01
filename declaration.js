@@ -15,7 +15,7 @@ Declaration.prototype = {
   parse: function(line) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
     this.variable = new Variable(line.substring(0, assignmentIndex));
-    var assignedValue = new Value(line.substring(assignmentIndex + 1, line.length));
+    var assignedValue = new Value(line.substring(assignmentIndex + 1, line.length), this.store);
     var storedValue = this.store.findValue(assignedValue.value);
 
     if (storedValue) {

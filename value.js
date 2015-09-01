@@ -5,8 +5,27 @@ var compile = require('./compile');
 
 var CSS_FUNCTIONS = ['rgb', 'rgba', 'url'];
 
+function isNotCssFunction(value) {
+  return CSS_FUNCTIONS.indexOf(value) === -1;
+}
+
 function includesFunction(value) {
-  return value.search(/\w+\(.|\)/) !== -1;
+  var regex = /(\w+)\(.+\)/g;
+  var matches = regex.exec(value);
+
+  if (matches) {
+    if (matches.slice(1).some(isNotCssFunction)) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+function includesVariable(value) {
+  return value.search(/\$\w+/g) !== -1;
 }
 
 function removeFlags(value) {
@@ -29,5 +48,9 @@ Value.prototype = {
     }
   }
 };
+
+if (process.env.NODE_ENV === 'test') {
+  Value.includesFunction = includesFunction;
+}
 
 module.exports = Value;
