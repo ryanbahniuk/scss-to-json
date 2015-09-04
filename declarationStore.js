@@ -11,17 +11,22 @@ DeclarationStore.prototype = {
     this.declarations.push(declaration);
   },
 
-  findValue: function(variable) {
-    var filteredDeclarations = this.declarations.filter(function(declaration) {
-      return declaration.variable.value === variable;
+  hasDefinedVariable: function(assignedValue) {
+    return this.declarations.some(function(declaration) {
+      var regex = new RegExp('\$' + declaration.variable.value);
+      return regex.test(assignedValue);
     });
+  },
 
-    if (filteredDeclarations.length === 1) {
-      return filteredDeclarations[0].value;
-    } else {
-      return undefined;
-    }
+  replaceVariables: function(scssString) {
+    this.declarations.forEach(function(declaration) {
+      var variable = declaration.variable.value;
+      var value = declaration.value.value;
+
+      scssString = scssString.replace(variable, value);
+    });
+    return scssString;
   }
 };
 
-module.exports = DeclarationStore;
+module.exports = new DeclarationStore();

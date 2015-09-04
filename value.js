@@ -2,6 +2,7 @@
 
 var utilities = require('./utilities');
 var compile = require('./compile');
+var declarationStore = require('./declarationStore');
 
 var CSS_FUNCTIONS = ['rgb', 'rgba', 'url'];
 
@@ -39,7 +40,8 @@ function Value(scssString) {
 Value.prototype = {
   _parse: function(scssString) {
     var deflagged = removeFlags(scssString);
-    var value = utilities.stripSpaces(deflagged);
+    var variabled = declarationStore.replaceVariables(deflagged);
+    var value = utilities.stripSpaces(variabled);
 
     if (includesFunction(value)) {
       this.value = compile.fromString(value);

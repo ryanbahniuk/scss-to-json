@@ -3,26 +3,26 @@
 var utilities = require('./utilities');
 var Value = require('./value');
 var Variable = require('./variable');
+var declarationStore = require('./declarationStore');
 
 var ASSIGNMENT_OPERATOR = ':';
 
-function Declaration(line, store) {
-  this.store = store;
-  this.parse(line);
+function Declaration(line) {
+  this._parse(line);
 }
 
 Declaration.prototype = {
-  parse: function(line) {
+  _parse: function(line) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
-    this.variable = new Variable(line.substring(0, assignmentIndex));
-    var assignedValue = new Value(line.substring(assignmentIndex + 1, line.length), this.store);
-    var storedValue = this.store.findValue(assignedValue.value);
+    var assignedVariable = line.substring(0, assignmentIndex);
+    var assignedValue = line.substring(assignmentIndex + 1, line.length);
+    var hasDefinedVariable = declarationStore.hasDefinedVariable(assignedValue);
 
-    if (storedValue) {
-      this.value = storedValue;
-    } else {
-      this.value = assignedValue;
-      this.store.addDeclaration(this);
+    this.variable = new Variable(assignedVariable);
+    this.value = new Value(assignedValue);
+
+    if (!hasDefinedVariable) {
+      declarationStore.addDeclaration(this);
     }
   }
 };
