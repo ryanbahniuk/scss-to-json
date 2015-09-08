@@ -9,9 +9,9 @@ var Utilities = {
     return scssString.replace(/\s/g, '');
   },
 
-  normalizeString: function(scssString) {
-    var strippedNewLines = this.stripNewLines(scssString);
-    return this.stripSpaces(strippedNewLines);
+  stripLeadingAndTrailingSpaces: function(scssString) {
+    var leading = scssString.replace(/^\s/, '');
+    return leading.replace(/\s$/, '');
   }
 };
 
