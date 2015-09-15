@@ -21,4 +21,9 @@ var Compile = {
   }
 };
 
+if (process.env.NODE_ENV === 'test') {
+  Compile.wrapValue = wrapValue;
+  Compile.unwrapValue = unwrapValue;
+}
+
 module.exports = Compile;
