@@ -13,19 +13,21 @@ DeclarationStore.prototype = {
 
   hasDefinedVariable: function(assignedValue) {
     return this.declarations.some(function(declaration) {
-      var regex = new RegExp('\$' + declaration.variable.value);
+      var regex = new RegExp('\\' + declaration.variable.value);
       return regex.test(assignedValue);
     });
   },
 
   replaceVariables: function(scssString) {
+    var replacedString = scssString;
+
     this.declarations.forEach(function(declaration) {
       var variable = declaration.variable.value;
       var value = declaration.value.value;
 
-      scssString = scssString.replace(variable, value);
+      replacedString = replacedString.replace(variable, value);
     });
-    return scssString;
+    return replacedString;
   }
 };
 
