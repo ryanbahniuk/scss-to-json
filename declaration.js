@@ -1,6 +1,5 @@
 'use strict';
 
-var utilities = require('./utilities');
 var Value = require('./value');
 var Variable = require('./variable');
 var declarationStore = require('./declarationStore');
