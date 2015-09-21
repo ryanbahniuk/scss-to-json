@@ -47,4 +47,10 @@ Processor.prototype = {
   }
 };
 
+if (process.env.NODE_ENV === 'test') {
+  Processor.makeJSON = makeJSON;
+  Processor.saveFile = saveFile;
+  Processor.filterLines = filterLines;
+}
+
 module.exports = Processor;
