@@ -1,6 +1,5 @@
 'use strict';
 
-var utilities = require('./utilities');
 var compile = require('./compile');
 var declarationStore = require('./declarationStore');
 
@@ -17,7 +16,7 @@ Value.prototype = {
     var deflagged = removeFlags(scssString);
     var variabled = declarationStore.replaceVariables(deflagged);
     var compiled = compile.fromString(variabled);
-    this.value = utilities.stripLeadingAndTrailingSpaces(compiled);
+    this.value = compiled.trim();
   }
 };
 

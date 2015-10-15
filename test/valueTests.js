@@ -5,33 +5,46 @@ var sinon = require('sinon');
 var proxyquire =  require('proxyquire');
 
 describe('Value', function() {
+  var scssString;
   var Value;
+  var declarationStore;
   var compile;
 
   beforeEach(function() {
+    scssString = ' blue !global';
+
+    declarationStore = {
+      replaceVariables: sinon.spy(function(input) { return input; })
+    };
+
     compile = {
       fromString: sinon.spy(function(input) { return input; })
     };
 
     Value = proxyquire('../src/value', {
-      'compile': compile
+      './compile': compile,
+      './declarationStore': declarationStore
     });
   });
 
-  describe('includesFunction', function() {
-    it('should return true if a function is in the given string', function() {
-      assert.ok(Value.includesFunction('lighten(#123, 10%);'));
-      assert.ok(Value.includesFunction('lighten(#123, 10%)'));
-      assert.ok(Value.includesFunction('lighten($variable, 10%)'));
-      assert.ok(Value.includesFunction('10px - floor(10.1)'));
-    });
+  describe('Constructor', function() {
+    it('should call _parse with the given scssString', function() {
+      var parseStub = sinon.stub(Value.prototype, '_parse');
 
-    it('should return true if a function is not in the given string', function() {
-      assert.ok(!Value.includesFunction('#123'));
-      assert.ok(!Value.includesFunction('rgb(1, 1, 1)'));
-      assert.ok(!Value.includesFunction('$variable'));
-      assert.ok(!Value.includesFunction('rgba(1, 1, 1, 0.5)'));
-      assert.ok(!Value.includesFunction('url(image.svg)'));
+      new Value(scssString);
+
+      assert.ok(parseStub.calledOnce);
+      assert.ok(parseStub.calledWith(scssString));
+    });
+  });
+
+  describe('#_parse', function() {
+    it('assigns the value and calls the correct transforms', function() {
+      var value = new Value(scssString);
+
+      assert.ok(declarationStore.replaceVariables.calledWith(' blue '));
+      assert.ok(compile.fromString.calledWith(' blue '));
+      assert.strictEqual(value.value, 'blue');
     });
   });
 });
