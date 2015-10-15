@@ -2,16 +2,11 @@
 
 var Utilities = {
   stripNewLines: function(scssString) {
-    return scssString.replace('\n', '');
+    return scssString.replace(/\n/g, '');
   },
 
   stripSpaces: function(scssString) {
     return scssString.replace(/\s/g, '');
-  },
-
-  stripLeadingAndTrailingSpaces: function(scssString) {
-    var leading = scssString.replace(/^\s/, '');
-    return leading.replace(/\s$/, '');
   }
 };
 
