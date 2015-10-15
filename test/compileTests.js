@@ -21,7 +21,7 @@ describe('Compile', function() {
     };
     cssminStub = sinon.stub().returns(minifiedWrapped);
 
-    Compile = proxyquire('../compile', {
+    Compile = proxyquire('../src/compile', {
       'node-sass': nodeSassStub,
       'cssmin': cssminStub
     });

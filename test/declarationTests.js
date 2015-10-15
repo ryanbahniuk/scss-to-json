@@ -28,7 +28,7 @@ describe('Declaration', function() {
       addDeclaration: function() {}
     };
 
-    Declaration = proxyquire('../declaration', {
+    Declaration = proxyquire('../src/declaration', {
       './value': ValueStub,
       './variable': VariableStub,
       './declarationStore': declarationStoreStub

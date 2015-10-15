@@ -13,7 +13,7 @@ describe('Value', function() {
       fromString: sinon.spy(function(input) { return input; })
     };
 
-    Value = proxyquire('../value', {
+    Value = proxyquire('../src/value', {
       'compile': compile
     });
   });

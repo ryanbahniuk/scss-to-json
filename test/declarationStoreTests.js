@@ -1,14 +1,13 @@
 'use strict';
 
 var assert = require('assert');
+var declarationStore = require('../src/declarationStore');
 
 describe('DeclarationStore', function() {
-  var declarationStore;
   var sampleDeclaration;
   var secondSampleDeclaration;
 
   beforeEach(function() {
-    declarationStore = require('../declarationStore');
     sampleDeclaration = {
       variable: {
        value: '$test'
