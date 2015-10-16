@@ -11,13 +11,6 @@ DeclarationStore.prototype = {
     this.declarations.push(declaration);
   },
 
-  hasDefinedVariable: function(assignedValue) {
-    return this.declarations.some(function(declaration) {
-      var regex = new RegExp('\\' + declaration.variable.value);
-      return regex.test(assignedValue);
-    });
-  },
-
   replaceVariables: function(scssString) {
     var replacedString = scssString;
 

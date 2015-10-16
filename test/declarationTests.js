@@ -70,12 +70,10 @@ describe('Declaration', function() {
     });
 
     it('should add the declaration to the store if it does not have a defined variable in the value', function() {
-      var hasDefinedVariableStub = sinon.stub(declarationStoreStub, 'hasDefinedVariable').returns(false);
       var addDeclarationStub = sinon.stub(declarationStoreStub, 'addDeclaration');
 
       declaration._parse(scssString);
 
-      assert.ok(hasDefinedVariableStub.calledWith('1px solid blue;'));
       assert.ok(addDeclarationStub.calledWith(declaration));
     });
   });

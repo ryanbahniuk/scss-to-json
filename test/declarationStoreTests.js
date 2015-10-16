@@ -45,33 +45,6 @@ describe('DeclarationStore', function() {
     });
   });
 
-  describe('#hasDefinedVariable', function() {
-    beforeEach(function() {
-      declarationStore.declarations = [sampleDeclaration, secondSampleDeclaration];
-    });
-
-    it('returns true if the given value is a variable defined in the store', function() {
-      assert.ok(declarationStore.hasDefinedVariable('$test'));
-    });
-
-    it('returns true if the given value includes a variable defined in the store', function() {
-      assert.ok(declarationStore.hasDefinedVariable('1px solid $second'));
-    });
-
-    it('returns false if the variable in the given value is not defined in the store', function() {
-      assert.ok(!declarationStore.hasDefinedVariable('$not-defined'));
-    });
-
-    it('returns false if the store is empty', function() {
-      declarationStore.declarations = [];
-      assert.ok(!declarationStore.hasDefinedVariable('$not-defined'));
-    });
-
-    it('returns false if there is no variable defined in the given value', function() {
-      assert.ok(!declarationStore.hasDefinedVariable('red'));
-    });
-  });
-
   describe('#replaceVariables', function() {
     beforeEach(function() {
       declarationStore.declarations = [sampleDeclaration, secondSampleDeclaration];

@@ -15,14 +15,11 @@ Declaration.prototype = {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
     var assignedVariable = line.substring(0, assignmentIndex);
     var assignedValue = line.substring(assignmentIndex + 1, line.length);
-    var hasDefinedVariable = declarationStore.hasDefinedVariable(assignedValue);
 
     this.variable = new Variable(assignedVariable);
     this.value = new Value(assignedValue);
 
-    if (!hasDefinedVariable) {
-      declarationStore.addDeclaration(this);
-    }
+    declarationStore.addDeclaration(this);
   }
 };
 
