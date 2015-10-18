@@ -1,11 +1,12 @@
 'use strict';
 
 var assert = require('assert');
-var declarationStore = require('../src/declarationStore');
+var DeclarationStore = require('../src/declarationStore');
 
 describe('DeclarationStore', function() {
   var sampleDeclaration;
   var secondSampleDeclaration;
+  var declarationStore;
 
   beforeEach(function() {
     sampleDeclaration = {
@@ -24,10 +25,8 @@ describe('DeclarationStore', function() {
         value: 'blue'
       }
     };
-  });
 
-  afterEach(function() {
-    declarationStore.declarations = [];
+    declarationStore = new DeclarationStore();
   });
 
   describe('Constructor', function() {

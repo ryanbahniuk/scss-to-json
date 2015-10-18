@@ -24,4 +24,4 @@ DeclarationStore.prototype = {
   }
 };
 
-module.exports = new DeclarationStore();
+module.exports = DeclarationStore;
