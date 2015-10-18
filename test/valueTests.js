@@ -7,23 +7,17 @@ var proxyquire =  require('proxyquire');
 describe('Value', function() {
   var scssString;
   var Value;
-  var declarationStore;
   var compile;
 
   beforeEach(function() {
     scssString = ' blue !global';
-
-    declarationStore = {
-      replaceVariables: sinon.spy(function(input) { return input; })
-    };
 
     compile = {
       fromString: sinon.spy(function(input) { return input; })
     };
 
     Value = proxyquire('../src/value', {
-      './compile': compile,
-      './declarationStore': declarationStore
+      './compile': compile
     });
   });
 
@@ -42,7 +36,6 @@ describe('Value', function() {
     it('assigns the value and calls the correct transforms', function() {
       var value = new Value(scssString);
 
-      assert.ok(declarationStore.replaceVariables.calledWith(' blue '));
       assert.ok(compile.fromString.calledWith(' blue '));
       assert.strictEqual(value.value, 'blue');
     });
