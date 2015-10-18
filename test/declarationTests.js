@@ -24,14 +24,13 @@ describe('Declaration', function() {
     };
 
     declarationStoreStub = {
-      hasDefinedVariable: function() {},
+      replaceVariables: function() {},
       addDeclaration: function() {}
     };
 
     Declaration = proxyquire('../src/declaration', {
       './value': ValueStub,
-      './variable': VariableStub,
-      './declarationStore': declarationStoreStub
+      './variable': VariableStub
     });
 
     scssString = '$test:1px solid blue;';
@@ -40,9 +39,9 @@ describe('Declaration', function() {
   describe('Constructor', function() {
     it('should call parse with the given string', function() {
       var parseStub = sinon.stub(Declaration.prototype, '_parse');
-      new Declaration(scssString);
+      new Declaration(scssString, declarationStoreStub);
 
-      assert.ok(parseStub.calledWith(scssString));
+      assert.ok(parseStub.calledWith(scssString, declarationStoreStub));
     });
   });
 
@@ -51,29 +50,34 @@ describe('Declaration', function() {
 
     beforeEach(function() {
       sinon.stub(Declaration.prototype, '_parse');
-      declaration = new Declaration(scssString);
+      declaration = new Declaration(scssString, declarationStoreStub);
       sinon.restore(Declaration.prototype, '_parse');
     });
 
-    it('should assign this.variable with the variable part of the given string', function() {
-      declaration._parse(scssString);
+    it('should assign this.variable with a variable object with the correct value', function() {
+      declaration._parse(scssString, declarationStoreStub);
 
       assert.ok(declaration.variable.isVariable);
       assert.strictEqual(declaration.variable.value, '$test');
     });
 
-    it('should assign this.value with the value part of the given string', function() {
-      declaration._parse(scssString);
+    it('should replace variables and assign this.value with a value object with the correct value', function() {
+      var replaceVariablesStub = sinon.stub(declarationStoreStub, 'replaceVariables').returns('replaced!');
 
+      declaration._parse(scssString, declarationStoreStub);
+
+      assert.ok(replaceVariablesStub.calledOnce);
+      assert.ok(replaceVariablesStub.calledWith('1px solid blue;'));
       assert.ok(declaration.value.isValue);
-      assert.strictEqual(declaration.value.value, '1px solid blue;');
+      assert.strictEqual(declaration.value.value, 'replaced!');
     });
 
-    it('should add the declaration to the store if it does not have a defined variable in the value', function() {
+    it('should add the declaration to the store', function() {
       var addDeclarationStub = sinon.stub(declarationStoreStub, 'addDeclaration');
 
-      declaration._parse(scssString);
+      declaration._parse(scssString, declarationStoreStub);
 
+      assert.ok(addDeclarationStub.calledOnce);
       assert.ok(addDeclarationStub.calledWith(declaration));
     });
   });

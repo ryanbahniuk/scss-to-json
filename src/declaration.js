@@ -2,22 +2,23 @@
 
 var Value = require('./value');
 var Variable = require('./variable');
-var declarationStore = require('./declarationStore');
 
 var ASSIGNMENT_OPERATOR = ':';
 
-function Declaration(line) {
-  this._parse(line);
+function Declaration(line, declarationStore) {
+  this._parse(line, declarationStore);
 }
 
 Declaration.prototype = {
-  _parse: function(line) {
+  _parse: function(line, declarationStore) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
     var assignedVariable = line.substring(0, assignmentIndex);
     var assignedValue = line.substring(assignmentIndex + 1, line.length);
 
+    var replacedValue = declarationStore.replaceVariables(assignedValue);
+
     this.variable = new Variable(assignedVariable);
-    this.value = new Value(assignedValue);
+    this.value = new Value(replacedValue);
 
     declarationStore.addDeclaration(this);
   }
