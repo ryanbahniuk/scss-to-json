@@ -3,6 +3,7 @@
 var path = require('path');
 var fs = require('fs-extra');
 var Declaration = require('./declaration');
+var DeclarationStore = require('./declarationStore');
 var utilities = require('./utilities');
 
 var LINE_DELIMITER = ';';
@@ -29,21 +30,25 @@ function hasDependencies(options) {
   return options && options.dependencies && options.dependencies.length > 0;
 }
 
-function declarationsFromString(path) {
+function declarationsFromString(path, declarationStore) {
   var data = fs.readFileSync(path, 'utf8');
 
   var lines = String(data).split(LINE_DELIMITER).map(utilities.stripNewLines).filter(filterLines);
   return lines.map(function(line) {
-    return new Declaration(line);
+    return new Declaration(line, declarationStore);
   });
 }
 
 function Processor(path, options) {
+  var declarationStore = new DeclarationStore();
+
   if (hasDependencies(options)) {
-    options.dependencies.forEach(declarationsFromString);
+    options.dependencies.forEach(function(dependencyPath) {
+      declarationsFromString(dependencyPath, declarationStore);
+    });
   }
 
-  var declarations = declarationsFromString(path);
+  var declarations = declarationsFromString(path, declarationStore);
 
   this.object = makeObject(declarations);
 }
