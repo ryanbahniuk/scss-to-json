@@ -3,9 +3,12 @@ $second-variable: red;
 $global-variable: #123 !global;
 $references: $second-variable;
 $scss-function: lighten(#123, 10%);
+// some comments in here
 $scss-function-with-variable: darken($global-variable, 5%);
 $image: url(sample.svg);
 $image-with-quotes: url('sample.svg');
 $calculation: $first - 12px;
+//some more comments with a return after
+
 $multiple-variables: $first solid $second-variable;
 $multiple-calculations: $first - floor(12.5px);
