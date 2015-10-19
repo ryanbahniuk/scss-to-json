@@ -30,10 +30,15 @@ function hasDependencies(options) {
   return options && options.dependencies && options.dependencies.length > 0;
 }
 
+function normalizeLines(line) {
+  var stripped = utilities.stripNewLinesAndSemicolons(line);
+  return stripped.trim();
+}
+
 function declarationsFromString(path, declarationStore) {
   var data = fs.readFileSync(path, 'utf8');
 
-  var lines = String(data).split(LINE_DELIMITER).map(utilities.stripNewLinesAndSemicolons).filter(filterLines);
+  var lines = String(data).split(LINE_DELIMITER).map(normalizeLines).filter(filterLines);
   return lines.map(function(line) {
     return new Declaration(line, declarationStore);
   });
