@@ -12,13 +12,14 @@ function Declaration(line, declarationStore) {
 Declaration.prototype = {
   _parse: function(line, declarationStore) {
     var assignmentIndex = line.indexOf(ASSIGNMENT_OPERATOR);
-    var assignedVariable = line.substring(0, assignmentIndex);
-    var assignedValue = line.substring(assignmentIndex + 1, line.length);
+    var assignedVariable = line.substring(0, assignmentIndex).trim();
+    var assignedValue = line.substring(assignmentIndex + 1, line.length).trim();
 
     var replacedValue = declarationStore.replaceVariables(assignedValue);
 
     this.variable = new Variable(assignedVariable);
     this.value = new Value(replacedValue);
+
 
     declarationStore.addDeclaration(this);
   }
