@@ -6,7 +6,7 @@ var Declaration = require('./declaration');
 var DeclarationStore = require('./declarationStore');
 var utilities = require('./utilities');
 
-var LINE_DELIMITER = ';';
+var LINE_DELIMITER = '\n';
 var COMMENT_DELIMETER = '//';
 var EMPTY_LINES = ['', '\n', '\s'];
 
@@ -33,7 +33,7 @@ function hasDependencies(options) {
 function declarationsFromString(path, declarationStore) {
   var data = fs.readFileSync(path, 'utf8');
 
-  var lines = String(data).split(LINE_DELIMITER).map(utilities.stripNewLines).filter(filterLines);
+  var lines = String(data).split(LINE_DELIMITER).map(utilities.stripNewLinesAndSemicolons).filter(filterLines);
   return lines.map(function(line) {
     return new Declaration(line, declarationStore);
   });

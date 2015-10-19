@@ -5,12 +5,12 @@ var sinon = require('sinon');
 var utilities = require('../src/utilities');
 
 describe('Utilities', function() {
-  describe('#stripNewLines', function() {
+  describe('#stripNewLinesAndSemicolons', function() {
     it('should remove all new lines', function() {
-      var input = '\nhello, I have\n some new lines.\n';
-      var output = 'hello, I have some new lines.';
+      var input = '\nhello, I have\n some new lines\n and ;semicolons;';
+      var output = 'hello, I have some new lines and semicolons';
 
-      assert.strictEqual(utilities.stripNewLines(input), output);
+      assert.strictEqual(utilities.stripNewLinesAndSemicolons(input), output);
     });
   });
 

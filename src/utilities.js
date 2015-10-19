@@ -1,8 +1,8 @@
 'use strict';
 
 var Utilities = {
-  stripNewLines: function(scssString) {
-    return scssString.replace(/\n/g, '');
+  stripNewLinesAndSemicolons: function(scssString) {
+    return scssString.replace(/\n/g, '').replace(/\;/g, '');
   },
 
   stripSpaces: function(scssString) {
