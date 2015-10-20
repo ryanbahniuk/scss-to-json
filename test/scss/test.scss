@@ -12,3 +12,7 @@ $calculation: $first - 12px;
 
 $multiple-variables: $first solid $second-variable;
 $multiple-calculations: $first - floor(12.5px);
+
+$gray-50: #fff;
+$gray-500: #f6f6f6;
+$uses-gray-500: $gray-500;

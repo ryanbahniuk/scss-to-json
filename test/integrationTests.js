@@ -20,7 +20,10 @@ describe('Integration Tests', function() {
         "$image-with-quotes": "url(\"sample.svg\")",
         "$calculation": "40px",
         "$multiple-variables": "52px solid red",
-        "$multiple-calculations":"40px"
+        "$multiple-calculations": "40px",
+        "$gray-50": "#fff",
+        "$gray-500": "#f6f6f6",
+        "$uses-gray-500": "#f6f6f6"
       };
     });
 
