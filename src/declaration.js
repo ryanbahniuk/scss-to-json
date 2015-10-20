@@ -20,7 +20,6 @@ Declaration.prototype = {
     this.variable = new Variable(assignedVariable);
     this.value = new Value(replacedValue);
 
-
     declarationStore.addDeclaration(this);
   }
 };
