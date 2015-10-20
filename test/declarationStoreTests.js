@@ -6,6 +6,7 @@ var DeclarationStore = require('../src/declarationStore');
 describe('DeclarationStore', function() {
   var sampleDeclaration;
   var secondSampleDeclaration;
+  var thirdSampleDeclaration;
   var declarationStore;
 
   beforeEach(function() {
@@ -23,6 +24,14 @@ describe('DeclarationStore', function() {
       },
       value: {
         value: 'blue'
+      }
+    };
+    thirdSampleDeclaration = {
+      variable: {
+       value: '$gray-50'
+      },
+      value: {
+        value: '#f5f5f5'
       }
     };
 
@@ -46,12 +55,21 @@ describe('DeclarationStore', function() {
 
   describe('#replaceVariables', function() {
     beforeEach(function() {
-      declarationStore.declarations = [sampleDeclaration, secondSampleDeclaration];
+      declarationStore.declarations = [sampleDeclaration, secondSampleDeclaration, thirdSampleDeclaration];
     });
 
     it('replaces variables in the given string with their value from the store if they exist in the store', function() {
       assert.strictEqual(declarationStore.replaceVariables('$test'), '10px');
       assert.strictEqual(declarationStore.replaceVariables('1px solid $second'), '1px solid blue');
+    });
+
+    it('replaces variables in the given string if that string is a function and the variables match from the store', function() {
+      assert.strictEqual(declarationStore.replaceVariables('darken($second, 5%)'), 'darken(blue, 5%)');
+    });
+
+    it('does not replace variables if there is a subset of that variable in the store', function() {
+      var scssString = '$gray-500';
+      assert.strictEqual(declarationStore.replaceVariables(scssString), scssString);
     });
 
     it('returns the original string if the variable is not defined in the store', function() {
