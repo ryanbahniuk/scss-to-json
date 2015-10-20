@@ -18,7 +18,7 @@ DeclarationStore.prototype = {
       var variable = declaration.variable.value;
       var value = declaration.value.value;
 
-      var subsetRegex = new RegExp('\\' + variable + '\\w', 'g');
+      var subsetRegex = new RegExp('\\' + variable + '[\\w_-]', 'g');
       var isSubset = !!replacedString.match(subsetRegex);
 
       if (!isSubset) {
