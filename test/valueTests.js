@@ -10,7 +10,7 @@ describe('Value', function() {
   var compile;
 
   beforeEach(function() {
-    scssString = ' blue !global';
+    scssString = ' blue !global // with a comment';
 
     compile = {
       fromString: sinon.spy(function(input) { return input; })
