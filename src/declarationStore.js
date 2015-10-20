@@ -18,7 +18,13 @@ DeclarationStore.prototype = {
       var variable = declaration.variable.value;
       var value = declaration.value.value;
 
-      replacedString = replacedString.replace(variable, value);
+      var subsetRegex = new RegExp('\\' + variable + '\\w', 'g');
+      var isSubset = !!replacedString.match(subsetRegex);
+
+      if (!isSubset) {
+        var regex = new RegExp('(\\' + variable + ')([\\W\\,]?)', 'g');
+        replacedString = replacedString.replace(regex, value + '$2');
+      }
     });
     return replacedString;
   }
