@@ -67,8 +67,18 @@ describe('DeclarationStore', function() {
       assert.strictEqual(declarationStore.replaceVariables('darken($second, 5%)'), 'darken(blue, 5%)');
     });
 
-    it('does not replace variables if there is a subset of that variable in the store', function() {
+    it('does not replace variables if there is a subset of that variable in the store with a word character', function() {
       var scssString = '$gray-500';
+      assert.strictEqual(declarationStore.replaceVariables(scssString), scssString);
+    });
+
+    it('does not replace variables if there is a subset of that variable in the store with an underscore', function() {
+      var scssString = '$gray-50-large';
+      assert.strictEqual(declarationStore.replaceVariables(scssString), scssString);
+    });
+
+    it('does not replace variables if there is a subset of that variable in the store with an underscore', function() {
+      var scssString = '$gray-50_large';
       assert.strictEqual(declarationStore.replaceVariables(scssString), scssString);
     });
 

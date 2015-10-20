@@ -23,7 +23,11 @@ describe('Integration Tests', function() {
         "$multiple-calculations": "40px",
         "$gray-50": "#fff",
         "$gray-500": "#f6f6f6",
-        "$uses-gray-500": "#f6f6f6"
+        "$uses-gray-500": "#f6f6f6",
+        "$font-size-small": "15px",
+        "$font-size-large": "18px",
+        "$icon-font-size": "15px",
+        "$icon-font-size-lg": "18px"
       };
     });
 
