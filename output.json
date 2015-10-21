@@ -1,1 +1,0 @@
-{"$first":"52px","$second-variable":"red","$global-variable":"#123","$references":"red","$scss-function":"#1e3b59","$scss-function-with-variable":"#0b1520","$image":"url(sample.svg)","$image-with-quotes":"url(\"sample.svg\")","$calculation":"40px","$multiple-variables":"52px solid red","$multiple-calculations":"40px"}
