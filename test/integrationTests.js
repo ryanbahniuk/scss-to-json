@@ -61,4 +61,20 @@ describe('Integration Tests', function() {
       assert.deepEqual(output, compiled);
     });
   });
+
+  context('if file is scoped', function() {
+    beforeEach(function() {
+      output = {
+        "$global-variable": "17px",
+        "$global-with-function": "#e60000"
+      };
+    });
+
+    it('should compile the sample file to the correct JS object', function() {
+      var filePath = path.resolve(__dirname, 'scss','scoped.scss');
+      var compiled = scssToJson(filePath);
+
+      assert.deepEqual(output, compiled);
+    });
+  });
 });
