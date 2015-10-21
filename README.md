@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ryanbahniuk/scss-to-json.svg?branch=master)](https://travis-ci.org/ryanbahniuk/scss-to-json)
+
 # scss-to-json
 A package to require SCSS variables in JSON format
 
