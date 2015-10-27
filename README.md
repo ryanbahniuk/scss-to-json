@@ -73,6 +73,35 @@ var colors = scssToJson(filePath, {
 });
 ```
 
+### Scoping
+
+SCSS variable files are able to provide local and global scope with the following method:
+
+```scss
+%scoped {
+  $font-size: 14px;
+  $font-size-large: $font-size * 1.1 !global;
+}
+
+html {
+  @extend %scoped;
+}
+```
+
+This will keep `$font-size` scoped locally inside that block, while allowing it to be used to derive global variables marked with the `!global` flag. These variables will be available throughout your SCSS import tree.
+
+If you use this method in your SCSS variables file, you can provide an option to scss-to-json to output only the global variables to JSON. The option takes the name of the scoping placeholder as a string.
+
+```js
+var scssToJson = require('scss-to-json');
+var path = require('path');
+
+var filePath = path.resolve(__dirname, 'variables.scss');
+var colors = scssToJson(filePath, {
+  scoped: '%scoped'
+});
+```
+
 ## Contributing
 
 Pull requests are welcome. If you add functionality, then please add unit tests
