@@ -66,13 +66,15 @@ describe('Integration Tests', function() {
     beforeEach(function() {
       output = {
         "$global-variable": "17px",
-        "$global-with-function": "#e60000"
+        "$global-with-function": "#0b1520"
       };
     });
 
     it('should compile the sample file to the correct JS object', function() {
       var filePath = path.resolve(__dirname, 'scss','scoped.scss');
-      var compiled = scssToJson(filePath);
+      var compiled = scssToJson(filePath, {
+        scope: '%scoped'
+      });
 
       assert.deepEqual(output, compiled);
     });
