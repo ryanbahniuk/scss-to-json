@@ -10,11 +10,17 @@ var LINE_DELIMITER = '\n';
 var COMMENT_DELIMETER = '//';
 var EMPTY_LINES = ['', '\n', '\s'];
 
-function makeObject(declarations) {
+function makeObject(declarations, options) {
   var output = {};
 
   declarations.forEach(function(declaration) {
-    output[declaration.variable.value] = declaration.value.value;
+    if (hasScope(options)) {
+      if (declaration.global) {
+        output[declaration.variable.value] = declaration.value.value;
+      }
+    } else {
+      output[declaration.variable.value] = declaration.value.value;
+    }
   });
 
   return output;
@@ -26,6 +32,44 @@ function filterLines(line) {
   });
 }
 
+function getScopeIndices(data, scope) {
+  var startIndex;
+  var endIndex;
+  var regex = new RegExp('\\' + scope + '.*\{', 'g');
+  var match = data.match(regex);
+
+  if (match) {
+    for (var i = data.indexOf(match[0]); i < data.length; i++) {
+      if (data[i] === '{') {
+        startIndex = i;
+      } else if (data[i] === "}") {
+        endIndex = i;
+        break;
+      }
+    }
+  }
+
+  return {
+    start: startIndex,
+    end: endIndex
+  };
+}
+
+function extractScope(data, scope) {
+  var extractedScope = data;
+  var scopeIndices = getScopeIndices(data, scope);
+
+  if (scopeIndices.start && scopeIndices.end) {
+    extractedScope = extractedScope.substring(scopeIndices.start + 1, scopeIndices.end - 1);
+  }
+
+  return extractedScope;
+}
+
+function hasScope(options) {
+  return options && options.scope && typeof options.scope === 'string';
+}
+
 function hasDependencies(options) {
   return options && options.dependencies && options.dependencies.length > 0;
 }
@@ -35,8 +79,12 @@ function normalizeLines(line) {
   return stripped.trim();
 }
 
-function declarationsFromString(path, declarationStore) {
+function declarationsFromString(path, declarationStore, options) {
   var data = fs.readFileSync(path, 'utf8');
+
+  if (hasScope(options)) {
+    data = extractScope(data, options.scope);
+  }
 
   var lines = String(data).split(LINE_DELIMITER).map(normalizeLines).filter(filterLines);
   return lines.map(function(line) {
@@ -45,6 +93,7 @@ function declarationsFromString(path, declarationStore) {
 }
 
 function Processor(path, options) {
+  var declarations;
   var declarationStore = new DeclarationStore();
 
   if (hasDependencies(options)) {
@@ -53,9 +102,9 @@ function Processor(path, options) {
     });
   }
 
-  var declarations = declarationsFromString(path, declarationStore);
+  declarations = declarationsFromString(path, declarationStore, options);
 
-  this.object = makeObject(declarations);
+  this.object = makeObject(declarations, options);
 }
 
 module.exports = Processor;
