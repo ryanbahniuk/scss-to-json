@@ -5,6 +5,11 @@ var Variable = require('./variable');
 
 var ASSIGNMENT_OPERATOR = ':';
 
+function hasGlobalFlag(value) {
+  var regex = new RegExp('\\!global(\\s|\$|\\W)');
+  return !!value.match(regex);
+}
+
 function Declaration(line, declarationStore) {
   this._parse(line, declarationStore);
 }
@@ -19,6 +24,7 @@ Declaration.prototype = {
 
     this.variable = new Variable(assignedVariable);
     this.value = new Value(replacedValue);
+    this.global = hasGlobalFlag(replacedValue);
 
     declarationStore.addDeclaration(this);
   }

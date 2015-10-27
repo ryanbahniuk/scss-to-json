@@ -11,6 +11,7 @@ describe('Declaration', function() {
   var VariableStub;
   var declarationStoreStub;
   var scssString;
+  var globalScssString;
 
   beforeEach(function() {
     ValueStub = function(value) {
@@ -24,7 +25,7 @@ describe('Declaration', function() {
     };
 
     declarationStoreStub = {
-      replaceVariables: function() {},
+      replaceVariables: function(value) { return value; },
       addDeclaration: function() {}
     };
 
@@ -34,6 +35,7 @@ describe('Declaration', function() {
     });
 
     scssString = '$test:1px solid blue;';
+    globalScssString = '$test:1px solid blue !global;';
   });
 
   describe('Constructor', function() {
@@ -70,6 +72,18 @@ describe('Declaration', function() {
       assert.ok(replaceVariablesStub.calledWith('1px solid blue;'));
       assert.ok(declaration.value.isValue);
       assert.strictEqual(declaration.value.value, 'replaced!');
+    });
+
+    it('should assign this.global to be true if it has the !global flag', function() {
+      declaration._parse(globalScssString, declarationStoreStub);
+
+      assert.strictEqual(declaration.global, true);
+    });
+
+    it('should assign this.global to be false if it does not have the !global flag', function() {
+      declaration._parse(scssString, declarationStoreStub);
+
+      assert.strictEqual(declaration.global, false);
     });
 
     it('should add the declaration to the store', function() {
