@@ -22,4 +22,36 @@ describe('Utilities', function() {
       assert.strictEqual(utilities.stripSpaces(input), output);
     });
   });
+
+  describe('#removeFlags', function() {
+    it('should remove all flags', function() {
+      var input = '!global hello, !default I have some spaces !global';
+      var output = ' hello,  I have some spaces ';
+
+      assert.strictEqual(utilities.removeFlags(input), output);
+    });
+  });
+
+  describe('#removeInlineComments', function() {
+    it('should remove inline comment if it is the entire line', function() {
+      var input = '// this is a comment';
+      var output = '';
+
+      assert.strictEqual(utilities.removeInlineComments(input), output);
+    });
+
+    it('should remove inline comment if it is at the end of a line separated by a space', function() {
+      var input = '1px solid blue // this is a comment';
+      var output = '1px solid blue ';
+
+      assert.strictEqual(utilities.removeInlineComments(input), output);
+    });
+
+    it('should remove inline comment if it is at the end of a line not separated by a space', function() {
+      var input = '1px solid blue// this is a comment';
+      var output = '1px solid blue';
+
+      assert.strictEqual(utilities.removeInlineComments(input), output);
+    });
+  });
 });
