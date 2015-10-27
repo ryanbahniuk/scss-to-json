@@ -1,24 +1,10 @@
 'use strict';
 
 var compile = require('./compile');
-
-function removeFlags(value) {
-  return value.replace(/\!\w+/g, '');
-}
-
-function removeInlineComments(value) {
-  var transformedValue = value;
-  var commentIndex = value.indexOf('//');
-
-  if (commentIndex > -1) {
-    transformedValue = transformedValue.substring(0, commentIndex - 1);
-  }
-
-  return transformedValue;
-}
+var utilities = require('./utilities');
 
 function transforms(value) {
-  return removeInlineComments(removeFlags(value));
+  return utilities.removeInlineComments(utilities.removeFlags(value));
 }
 
 function Value(scssString) {
@@ -32,9 +18,5 @@ Value.prototype = {
     this.value = compiled.trim();
   }
 };
-
-if (process.env.NODE_ENV === 'test') {
-  Value.removeFlags = removeFlags;
-}
 
 module.exports = Value;

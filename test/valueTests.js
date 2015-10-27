@@ -8,6 +8,7 @@ describe('Value', function() {
   var scssString;
   var Value;
   var compile;
+  var utilities;
 
   beforeEach(function() {
     scssString = ' blue !global // with a comment';
@@ -16,8 +17,14 @@ describe('Value', function() {
       fromString: sinon.spy(function(input) { return input; })
     };
 
+    utilities = {
+      removeFlags: sinon.spy(function(input) { return input; }),
+      removeInlineComments: sinon.spy(function(input) { return input; })
+    };
+
     Value = proxyquire('../src/value', {
-      './compile': compile
+      './compile': compile,
+      './utilities': utilities
     });
   });
 
@@ -36,8 +43,10 @@ describe('Value', function() {
     it('assigns the value and calls the correct transforms', function() {
       var value = new Value(scssString);
 
-      assert.ok(compile.fromString.calledWith(' blue '));
-      assert.strictEqual(value.value, 'blue');
+      assert.ok(utilities.removeFlags.calledWith(scssString));
+      assert.ok(utilities.removeFlags.calledWith(scssString));
+      assert.ok(compile.fromString.calledWith(scssString));
+      assert.strictEqual(value.value, scssString.trim());
     });
   });
 });
