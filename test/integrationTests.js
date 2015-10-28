@@ -79,4 +79,25 @@ describe('Integration Tests', function() {
       assert.deepEqual(output, compiled);
     });
   });
+
+  context('if file is scoped and has dependencies on a scoped file', function() {
+    beforeEach(function() {
+      output = {
+        "$button-color-global": "#00f",
+        "$tag-color-global": "#0f0"
+      };
+    });
+
+    it('should compile the sample file to the correct JS object', function() {
+      var filePath = path.resolve(__dirname, 'scss','scoped-has-dependents.scss');
+      var dependencyPath = path.resolve(__dirname, 'scss', 'scoped-dependency.scss');
+      var compiled = scssToJson(filePath, {
+        dependencies: [
+          dependencyPath
+        ]
+      });
+
+      assert.deepEqual(output, compiled);
+    });
+  });
 });
