@@ -111,5 +111,5 @@ to cover it. Continuous Integration is handled by [Travis](https://travis-ci.org
 
 MIT © Ryan Bahniuk
 
-[ci]:      https://travis-ci.org/ryanbahniuk/sassaby
-[npm]:     https://www.npmjs.com/package/sassaby
+[ci]:      https://travis-ci.org/ryanbahniuk/scss-to-json
+[npm]:     https://www.npmjs.com/package/scss-to-json
