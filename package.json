@@ -39,6 +39,6 @@
     "sinon": "1.15.4"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   }
 }
