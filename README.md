@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/ryanbahniuk/scss-to-json.svg?branch=master)](https://travis-ci.org/ryanbahniuk/scss-to-json)
 
 # scss-to-json
-A package to require SCSS variables in JSON format
+
+> A package to require SCSS variables in JSON format.
 
 This package allows you to use your SCSS variables in your JS code. Specifically, it takes a SCSS variable file (example below) and will parse, run Sass functions, and convert to JSON format. This package is a function that will make this conversion for you in memory. If you want to output JSON to your file system, you should use the associated [grunt-scss-to-json](https://www.npmjs.com/package/grunt-scss-to-json "grunt-scss-to-json") package.
 
