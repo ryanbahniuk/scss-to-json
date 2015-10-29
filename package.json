@@ -1,6 +1,6 @@
 {
   "name": "scss-to-json",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility for converting SCSS variables files to JSON",
   "homepage": "https://github.com/ryanbahniuk/scss-to-json",
   "keywords": [
