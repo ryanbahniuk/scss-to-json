@@ -54,7 +54,7 @@ describe('Integration Tests', function() {
       var dependencyPath = path.resolve(__dirname, 'scss', 'dependency.scss');
       var compiled = scssToJson(filePath, {
         dependencies: [
-          dependencyPath
+          { path: dependencyPath }
         ]
       });
 
@@ -92,8 +92,9 @@ describe('Integration Tests', function() {
       var filePath = path.resolve(__dirname, 'scss','scoped-has-dependents.scss');
       var dependencyPath = path.resolve(__dirname, 'scss', 'scoped-dependency.scss');
       var compiled = scssToJson(filePath, {
+        scope: '%scoped',
         dependencies: [
-          dependencyPath
+          { path: dependencyPath, scope: '%scoped' }
         ]
       });
 

@@ -97,8 +97,8 @@ function Processor(path, options) {
   var declarationStore = new DeclarationStore();
 
   if (hasDependencies(options)) {
-    options.dependencies.forEach(function(dependencyPath) {
-      declarationsFromString(dependencyPath, declarationStore);
+    options.dependencies.forEach(function(dependency) {
+      declarationsFromString(dependency.path, declarationStore, dependency);
     });
   }
 
