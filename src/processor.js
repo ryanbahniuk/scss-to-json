@@ -1,6 +1,5 @@
 'use strict';
 
-var path = require('path');
 var fs = require('fs');
 var Declaration = require('./declaration');
 var DeclarationStore = require('./declarationStore');
@@ -42,7 +41,7 @@ function getScopeIndices(data, scope) {
     for (var i = data.indexOf(match[0]); i < data.length; i++) {
       if (data[i] === '{') {
         startIndex = i;
-      } else if (data[i] === "}") {
+      } else if (data[i] === '}') {
         endIndex = i;
         break;
       }

@@ -12,7 +12,7 @@ describe('DeclarationStore', function() {
   beforeEach(function() {
     sampleDeclaration = {
       variable: {
-       value: '$test'
+        value: '$test'
       },
       value: {
         value: '10px'
@@ -20,7 +20,7 @@ describe('DeclarationStore', function() {
     };
     secondSampleDeclaration = {
       variable: {
-       value: '$second'
+        value: '$second'
       },
       value: {
         value: 'blue'
@@ -28,7 +28,7 @@ describe('DeclarationStore', function() {
     };
     thirdSampleDeclaration = {
       variable: {
-       value: '$gray-50'
+        value: '$gray-50'
       },
       value: {
         value: '#f5f5f5'
