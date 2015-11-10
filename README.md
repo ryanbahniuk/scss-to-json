@@ -103,6 +103,11 @@ var colors = scssToJson(filePath, {
 });
 ```
 
+## CLI
+
+You can also use the CLI `./bin/scss-to-json <file>`.
+
+
 ## Contributing
 
 Pull requests are welcome. If you add functionality, then please add unit tests

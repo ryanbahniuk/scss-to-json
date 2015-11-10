@@ -12,6 +12,9 @@
     "email": "ryan.bahniuk@gmail.com",
     "url": "http://bahni.uk"
   },
+  "bin": {
+    "scss-to-json": "./bin/scss-to-json"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/ryanbahniuk/scss-to-json.git"
@@ -31,14 +34,18 @@
   },
   "dependencies": {
     "cssmin": "^0.4.3",
+    "minimist": "^1.2.0",
     "node-sass": "^3.1.2"
   },
   "devDependencies": {
+    "cross-spawn": "^2.0.0",
+    "eslint": "^1.9.0",
     "mocha": "2.2.5",
     "proxyquire": "1.6.0",
     "sinon": "1.15.4"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha"
+    "test": "NODE_ENV=test mocha",
+    "pretest": "eslint *.js bin/scss-to-json src test"
   }
 }
