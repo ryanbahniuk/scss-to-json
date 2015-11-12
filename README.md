@@ -70,7 +70,7 @@ var path = require('path');
 var filePath = path.resolve(__dirname, 'color-mapping.scss');
 var dependencyPath = path.resolve(__dirname, 'colors.scss');
 var colors = scssToJson(filePath, {
-  dependencies: [dependencyPath]
+  dependencies: [{path: dependencyPath}]
 });
 ```
 
@@ -99,9 +99,14 @@ var path = require('path');
 
 var filePath = path.resolve(__dirname, 'variables.scss');
 var colors = scssToJson(filePath, {
-  scoped: '%scoped'
+  scope: '%scoped'
 });
 ```
+
+## CLI
+
+You can also use the CLI `./bin/scss-to-json <file>`.
+
 
 ## Contributing
 
