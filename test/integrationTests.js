@@ -14,7 +14,7 @@ describe('Integration Tests', function() {
         "$second-variable": "red",
         "$global-variable": "#123",
         "$references": "red",
-        "$scss-function": "#1e3b59",
+        "$scss-function": "#1e3c59",
         "$scss-function-with-variable": "#0b1520",
         "$image": "url(sample.svg)",
         "$image-with-quotes": "url(\"sample.svg\")",
@@ -35,7 +35,7 @@ describe('Integration Tests', function() {
       var filePath = path.resolve(__dirname, 'scss', 'test.scss');
       var compiled = scssToJson(filePath);
 
-      assert.deepEqual(output, compiled);
+      assert.deepEqual(compiled, output);
     });
   });
 
@@ -58,7 +58,7 @@ describe('Integration Tests', function() {
         ]
       });
 
-      assert.deepEqual(output, compiled);
+      assert.deepEqual(compiled, output);
     });
   });
 
@@ -76,7 +76,7 @@ describe('Integration Tests', function() {
         scope: '%scoped'
       });
 
-      assert.deepEqual(output, compiled);
+      assert.deepEqual(compiled, output);
     });
   });
 
@@ -98,7 +98,7 @@ describe('Integration Tests', function() {
         ]
       });
 
-      assert.deepEqual(output, compiled);
+      assert.deepEqual(compiled, output);
     });
   });
 });
