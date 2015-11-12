@@ -17,7 +17,7 @@ describe('Compile', function() {
     correctlyWrapped = '.test { content: ' + scssString + ' };';
     minifiedWrapped = '.test{content:' + scssString + '}';
     nodeSassStub = {
-     renderSync: sinon.stub().returns({ css: correctlyWrapped })
+      renderSync: sinon.stub().returns({ css: correctlyWrapped })
     };
     cssminStub = sinon.stub().returns(minifiedWrapped);
 

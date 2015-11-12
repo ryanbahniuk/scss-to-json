@@ -1,7 +1,5 @@
 'use strict';
 
-var ASSIGNMENT_OPERATOR = ':';
-
 function DeclarationStore() {
   this.declarations = [];
 }

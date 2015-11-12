@@ -16,7 +16,7 @@ describe('Main', function() {
       test: true
     };
 
-    ProcessorStub = sinon.spy(function(path, options) {
+    ProcessorStub = sinon.spy(function() {
       this.object = returnedObject;
     });
 

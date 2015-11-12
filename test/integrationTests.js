@@ -50,7 +50,7 @@ describe('Integration Tests', function() {
     });
 
     it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss','has-dependents.scss');
+      var filePath = path.resolve(__dirname, 'scss', 'has-dependents.scss');
       var dependencyPath = path.resolve(__dirname, 'scss', 'dependency.scss');
       var compiled = scssToJson(filePath, {
         dependencies: [
@@ -71,7 +71,7 @@ describe('Integration Tests', function() {
     });
 
     it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss','scoped.scss');
+      var filePath = path.resolve(__dirname, 'scss', 'scoped.scss');
       var compiled = scssToJson(filePath, {
         scope: '%scoped'
       });
@@ -89,7 +89,7 @@ describe('Integration Tests', function() {
     });
 
     it('should compile the sample file to the correct JS object', function() {
-      var filePath = path.resolve(__dirname, 'scss','scoped-has-dependents.scss');
+      var filePath = path.resolve(__dirname, 'scss', 'scoped-has-dependents.scss');
       var dependencyPath = path.resolve(__dirname, 'scss', 'scoped-dependency.scss');
       var compiled = scssToJson(filePath, {
         scope: '%scoped',

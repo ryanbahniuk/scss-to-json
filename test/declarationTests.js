@@ -6,7 +6,6 @@ var sinon = require('sinon');
 
 describe('Declaration', function() {
   var Declaration;
-  var declaration;
   var ValueStub;
   var VariableStub;
   var declarationStoreStub;

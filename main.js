@@ -1,6 +1,5 @@
 'use strict';
 
-var path = require('path');
 var Processor = require('./src/processor');
 
 function scssToJson(path, options) {
