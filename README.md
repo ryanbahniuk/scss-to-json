@@ -103,6 +103,39 @@ var colors = scssToJson(filePath, {
 });
 ```
 
+### Renaming JSON keys
+
+Change the naming scheme of SCSS variables in the JSON output using the `rename` option:
+
+```scss
+$first-variable: red;
+$second-variable: blue;
+```
+
+```js
+var scssToJson = require('scss-to-json');
+var path = require('path');
+var camelCase = require('lodash.camelCase');
+
+var filePath = path.resolve(__dirname, 'variables.scss');
+var colors = scssToJson(filePath, {
+  rename: function(name) {
+    return camelCase(name.replace('$', ''));
+  }
+});
+```
+
+When run on the code above, scss-to-json will output the following JSON:
+
+```js
+{
+  "firstVariable": "red",
+  "secondVariable": "blue"
+}
+```
+
+The value returned by the `rename` function is used as-is, so be sure to return the original name if no changes are required. While this is best used for non-destructive renaming as shown in the above example, in the event that multiple variables are the same after renaming the JSON will include only the last-specified value.
+
 ## CLI
 
 You can also use the CLI `scss-to-json <file>`.
