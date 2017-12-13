@@ -13,12 +13,16 @@ function makeObject(declarations, options) {
   var output = {};
 
   declarations.forEach(function(declaration) {
+    var name = declaration.variable.value;
+    if (hasRename(options)) {
+      name = options.rename(name);
+    }
     if (hasScope(options)) {
       if (declaration.global) {
-        output[declaration.variable.value] = declaration.value.value;
+        output[name] = declaration.value.value;
       }
     } else {
-      output[declaration.variable.value] = declaration.value.value;
+      output[name] = declaration.value.value;
     }
   });
 
@@ -71,6 +75,10 @@ function hasScope(options) {
 
 function hasDependencies(options) {
   return options && options.dependencies && options.dependencies.length > 0;
+}
+
+function hasRename(options) {
+  return options && options.rename && typeof options.rename === 'function';
 }
 
 function normalizeLines(line) {
