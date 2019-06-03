@@ -27,7 +27,7 @@ function makeObject(declarations, options) {
 
 function filterLines(line) {
   return EMPTY_LINES.every(function(lineValue) {
-    return line !== lineValue && line.slice(0, 2) !== COMMENT_DELIMETER;
+    return line !== lineValue && line.slice(0, 2) !== COMMENT_DELIMETER && line.indexOf('@import') < 0;
   });
 }
 
