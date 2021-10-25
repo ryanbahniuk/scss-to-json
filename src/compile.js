@@ -1,6 +1,6 @@
 'use strict';
 
-var sass = require('node-sass');
+var sass = require('sass');
 var cssmin = require('cssmin');
 
 function wrapValue(value) {
